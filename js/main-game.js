@@ -11,7 +11,6 @@ $(document).ready(function(){
 		}	
 		blockrow= blockrow + '</tr>';
 		document.getElementById('othello-board').innerHTML = document.getElementById('othello-board').innerHTML + blockrow;
-		//alert('blockrow');
 	}
 	document.getElementById('block-4-4').classList.add("circle-black"); 
 	document.getElementById('block-5-5').classList.add("circle-black"); 
@@ -40,6 +39,7 @@ var game_board = [
 // 2 = white's chance | 1 = black's chance | black is always first
 function make_move(i,j)
 {
+	var error_msg="";
 	if(game_board[i][j]==0)
 	{
 		if(chance==1)
@@ -53,12 +53,12 @@ function make_move(i,j)
 			else
 			{
 				game_board[i][j]=0;
-				alert('There should be atleast one flip!');				
+				error_msg = "<br/>Warning: " +'There should be atleast one flip!';				
 				document.getElementById("block-"+i+"-"+j).classList.remove("circle-black");						
 			}	
 			display_gameboard();
 		}
-		else
+		else if(chance==2)
 		{
 			document.getElementById("block-"+i+"-"+j).classList.add("circle-white");			
 			game_board[i][j]=2;
@@ -69,7 +69,7 @@ function make_move(i,j)
 			else
 			{
 				game_board[i][j]=0;
-				alert('There should be atleast one flip!');				
+				error_msg = "<br/>Warning: " +'There should be atleast one flip!';				
 				document.getElementById("block-"+i+"-"+j).classList.remove("circle-white");						
 			}	
 			display_gameboard();
@@ -77,27 +77,15 @@ function make_move(i,j)
 	}
 	else
 	{
-		alert('you can not move above any piece!');
+		error_msg="<br/>Warning: " +'you can not move above any piece!';
 	}	
-	document.getElementById('info-area').innerHTML = '('+player_color[chance]+')'+'Player 1\'s move';
-}
-function display_gameboard()
-{
-	var s = "";
-	for(var i=1;i<=8;i++)
-	{
-		s = s + "\nrow "+i+": ";
-		for(var j=1;j<=8;j++)
-		{
-			s=s+ " " + game_board[i][j];
-		}
-	}
-	console.log(s);
+	document.getElementById('info-area').innerHTML = '('+player_color[chance]+')'+'Player '+chance+'\'s move' + error_msg;
+	count_score();	
 }
 
 function flip_circles(x,y)
 {
-	document.getElementById("block-"+x+"-"+y).classList.add(chance_color[chance]);
+//	document.getElementById("block-"+x+"-"+y).classList.add(chance_color[chance]);
 	game_board[x][y]=chance;
 
 	//UP
@@ -134,7 +122,7 @@ function flip_circles(x,y)
 
 function flip_direction(x,y,i,j)
 {
-	console.log('UP checking '+x+","+y+" = " + game_board[x][y]);
+//	console.log('UP checking '+x+","+y+" = " + game_board[x][y]);
 	if(game_board[x][y]==chance)
 		return true;
 
@@ -153,8 +141,45 @@ function flip(x,y)
 {
 		total_flips++;
 		game_board[x][y]=chance;
-		console.log('start flipping: '+x+","+y+" | "+document.getElementById("block-"+x+"-"+y).classList);		
+
+//		console.log('start flipping: '+x+","+y+" | "+document.getElementById("block-"+x+"-"+y).classList);		
 		document.getElementById("block-"+x+"-"+y).classList.toggle("circle-black");
 		document.getElementById("block-"+x+"-"+y).classList.toggle("circle-white");
-		console.log('start flipping: '+x+","+y+" | "+document.getElementById("block-"+x+"-"+y).classList);		
+//		console.log('start flipping: '+x+","+y+" | "+document.getElementById("block-"+x+"-"+y).classList);		
 }
+
+function display_gameboard()
+{
+	var s = "";
+	for(var i=1;i<=8;i++)
+	{
+		s = s + "\nrow "+i+": ";
+		for(var j=1;j<=8;j++)
+		{
+			s=s+ " " + game_board[i][j];
+		}
+	}
+//	console.log(s);
+}
+function count_score()
+{
+	var score_black=0,score_white=0;
+	for(var i=1;i<=8;i++)
+	{
+		for(var j=1;j<=8;j++)
+		{
+			if(game_board[i][j]==1)
+				score_black++;
+			else if(game_board[i][j]==2)
+				score_white++;
+		}
+	}
+	document.getElementById('player-1-score').innerHTML=score_black;
+	document.getElementById('player-2-score').innerHTML=score_white;
+
+	if(score_black==0 || score_white == 0)
+		document.getElementById('info-area').innerHTML = 'GAME OVER !!!';
+
+//	console.log(s);
+}
+
