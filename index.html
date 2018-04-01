@@ -2,181 +2,39 @@
 <html>
 <head>
 	<title>othello online</title>
-
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<style>
-	.othello-board-block
-	{
-		width:6vw;
-		height:6vw;
-		border:1px solid rgba(0,0,0,0.7);
-		margin:0;
-		background-color: rgba(23, 165, 23,1.0);
-	}
-	.circle-black
-	{
-		border-radius:500px;
-		width:5vw;
-		height:5vw;
-		background-color: rgba(0,0,0,0.8);
-	}
-	.circle-white
-	{
-		border-radius:500px;
-		width:5vw;
-		height:5vw;
-		background-color: rgba(255,255,255,0.8);
-	}	
-	#othello-board
-	{
-		background-color:rgba(0,0,0,0.6);
-	}
-	</style>
+	<script src="js/main-game.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="css/board-design.css">
 </head>
-<body>
-	
+<body>	
+
 	<table id="othello-board">		
 	</table>
+	<div id="info-area" >(black)Player 1's move</div>
+<div>
+	<hr/>
+	<h1>About Othello</h1>
 
-<script>
-$(document).ready(function(){
-	var blockrow='';
-	for(var i=1;i<=8;i++)
-	{
-		blockrow ='<tr class="othello-board-row">';
-		for(var j=1;j<=8;j++)
-		{
-			blockrow = blockrow + '<td class="othello-board-block" onclick="make_move('+i+','+j+')" >';
-			blockrow = blockrow + '<center><div class="" id="block-'+i+'-'+j+'"></div></center>';			
-			blockrow = blockrow + '</td>';		
-		}	
-		blockrow= blockrow + '</tr>';
-		document.getElementById('othello-board').innerHTML = document.getElementById('othello-board').innerHTML + blockrow;
-		//alert('blockrow');
-	}
-	document.getElementById('block-4-4').classList.add("circle-black"); 
-	document.getElementById('block-5-5').classList.add("circle-black"); 
-	document.getElementById('block-5-4').classList.add("circle-white"); 
-	document.getElementById('block-4-5').classList.add("circle-white"); 
+	<p>Othello is the trading name of a much older board game, Reversi. In both its originally named form and the newer trademark this game has become very popular on computers as much as in board format. Often referred to as a game of abstract strategy, Othello can only be played as a 2 player game. Made up of 8 rows and 8 columns, the board is populated with pieces from both players in turn. Each player’s pieces will be of one colour with the most common occurrence being black and white.</p>
 
-});
-</script>	
-<script>
-var chance=1;
-var chance_color = ["","circle-black","circle-white","circle-black"];
-var game_board = [
-					[0,0,0,0,0,0,0,0,0,0],
-					[0,0,0,0,0,0,0,0,0,0],
-					[0,0,0,0,0,0,0,0,0,0],
-					[0,0,0,0,0,0,0,0,0,0],
-					[0,0,0,0,1,2,0,0,0,0],
-					[0,0,0,0,2,1,0,0,0,0],
-					[0,0,0,0,0,0,0,0,0,0],
-					[0,0,0,0,0,0,0,0,0,0],
-					[0,0,0,0,0,0,0,0,0,0],
-					[0,0,0,0,0,0,0,0,0,0],
-				];
-// 2 = white's chance | 1 = black's chance | black is always first
-function make_move(i,j)
-{
-//	alert('req: ' + i + j );
-	if(game_board[i][j]==0)
-	{
-		if(chance==1)
-		{
-			document.getElementById("block-"+i+"-"+j).classList.add("circle-black");			
-			game_board[i][j]=1;
-			flip_circles(i,j);
-			chance=2;
-			display_gameboard();
-		}
-		else
-		{
-			document.getElementById("block-"+i+"-"+j).classList.add("circle-white");			
-			game_board[i][j]=2;
-			flip_circles(i,j);
-			chance=1;			
-			display_gameboard();
-		}	
-	}
-	else
-	{
-		alert('invalid move!!');
-	}	
+	<h2>How to Play Othello</h2>
+	<p>Players battle to finish the game with more of their own pieces on the board than their opponent. The game is classed as finished when there are no spaces left on the board or there are no more possible legal moves for either competitor.</p>
 
-}
-function display_gameboard()
-{
-	var s = "";
-	for(var i=1;i<=8;i++)
-	{
-		s = s + "\nrow "+i+": ";
-		for(var j=1;j<=8;j++)
-		{
-			s=s+ " " + game_board[i][j];
-		}
-	}
+	<h2>The Start</h2>
+	<p>Both players begin the game with two pieces on the board in the four centre squares. No two matching colours are connected vertically or horizontally so a miniature chequered pattern is made. In the typical set ups where it is black versus white the person using black chips must make the first move.</p>
 
-	console.log(s);
-}
-function flip_circles(x,y)
-{
-	document.getElementById("block-"+x+"-"+y).classList.add(chance_color[chance]);
-	game_board[x][y]=chance;
+	<h2>The Game</h2>
+	<p>Both players take it in turns to make their move which consists of placing one piece down in a legally acceptable position and then turning any of the opposing player’s pieces where applicable. A legal move is one that consists of, for example, a black piece being placed on the board that creates a straight line (vertical, horizontal or diagonal) made up of a black piece at either end and only white pieces in between. When a player achieves this, they must complete the move by turning any white pieces in between the two black so that they line becomes entirely black. This turning action must be completed for every legal turning line that is created with the placing of the new piece.</p>
+	<p>It goes without say that while the example assumes the use of black as the moving player, it is applicable both ways.</p>
+	<p>Players will then continue to move alternately until they get to the end of the game and a winner is decided. This decision is reached by identifying which of the two opponents has the most pieces on the board.</p>
 
-	//UP
-	flip_direction(x-1,y,-1,0);
-
-	//DOWN
-	flip_direction(x+1,y,1,0);
-
-	//RIGHT
-	flip_direction(x,y+1,0,1);
-
-	//LEFT
-	flip_direction(x,y-1,0,-1);
-
-	//UP RIGHT
-	flip_direction(x-1,y+1,-1,1);
-
-	//UP LEFT
-	flip_direction(x-1,y-1,-1,-1);
-
-	//DOWN RIGHT
-	flip_direction(x+1,y+1,1,1);
-
-	//DOWN LEFT
-	flip_direction(x+1,y-1,1,-1);
-
-}
-
-function flip_direction(x,y,i,j)
-{
-	console.log('UP checking '+x+","+y+" = " + game_board[x][y]);
-	if(game_board[x][y]==chance)
-		return true;
-
-	if(game_board[x][y]==0)
-		return false;
-
-	if(flip_direction(x+i,y+j,i,j))
-	{
-		flip(x,y);
-		return true;
-	}	
-	return false;
-}
-
-function flip(x,y)
-{
-		game_board[x][y]=chance;
-		console.log('start flipping: '+x+","+y+" | "+document.getElementById("block-"+x+"-"+y).classList);		
-		document.getElementById("block-"+x+"-"+y).classList.toggle("circle-black");
-		document.getElementById("block-"+x+"-"+y).classList.toggle("circle-white");
-		console.log('start flipping: '+x+","+y+" | "+document.getElementById("block-"+x+"-"+y).classList);		
-}
-
-</script>	
-
+	<h2>Timing</h2>
+	<p>For stricter or regulated games there is an alternative method of finishing a game. Players can start with a preset time limit for their total number of moves. The clock will start counting down at the beginning of a player’s first move and be paused each time they complete a turn whilst the opposing player’s clock is ticking down. There are varying time limits ranging from one minute for coffee break style desktop versions right up to thirty minutes as seen in the world championship rules and regulations.</p>
+	<p>This timing element adds more pressure to the game and forces players to exercise not only a logical approach but also a concise and sharply reactive one. This is because in the event that one player’s clock runs out of time, no matter what the position or number of chips on the board, the player with no time left has no choice but to forfeit the game and therefore lose. </p>
+	<!--blind copypaste | no copyright intended-->
+</div>	
 </body>
 </html>

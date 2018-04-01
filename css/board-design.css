@@ -1,0 +1,72 @@
+@media only screen and (max-width: 600px) 
+	{
+		.othello-board-block
+		{
+			width:10vw;
+			height:10vw;
+			border:1px solid rgba(0,0,0,0.7);
+			margin:0;
+			background-color: rgba(0, 163, 71,1.0);
+		}
+		.circle-black
+		{
+			border-radius:500px;
+			width:7vw;
+			height:7vw;
+			background-color: rgba(0,0,0,0.8);
+			box-shadow:10px 8px 8px rgba(0, 0, 0, 0.9)
+		}
+		.circle-white
+		{
+			border-radius:500px;
+			width:7vw;
+			height:7vw;
+			background-color: rgba(255,255,255,0.9);
+			box-shadow:10px 8px 8px rgba(0, 0, 0, 0.5)
+		}	
+		#othello-board
+		{
+			background-color:rgba(0,0,0,0.6);
+		}
+	}	
+
+@media only screen and (min-width: 600px) 
+	{
+		.othello-board-block
+		{
+			width:5vw;
+			height:5vw;
+			border:1px solid rgba(0,0,0,0.7);
+			margin:0;
+			background-color: rgba(0, 163, 71,1.0);
+		}
+		.circle-black
+		{
+			border-radius:500px;
+			width:4vw;
+			height:4vw;
+			background-color: rgba(0,0,0,0.9);
+			box-shadow:10px 8px 8px rgba(0, 0, 0, 0.5)
+		}
+		.circle-white
+		{
+			border-radius:500px;
+			width:4vw;
+			height:4vw;
+			background-color: rgba(255,255,255,0.9);
+			box-shadow:10px 8px 8px rgba(0, 0, 0, 0.5)
+		}	
+		#othello-board
+		{
+			background-color:rgba(0,0,0,0.6);
+		}
+	}	
+
+#info-area
+{
+	border:2px dotted rgba(0,0,0,0.8);
+	padding:3px;
+	margin:5px;
+	color: #e0510f;
+	background-color: #fff;
+}
