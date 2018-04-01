@@ -7,8 +7,8 @@
 	<style>
 	.othello-board-block
 	{
-		width:30px;
-		height:30px;
+		width:40px;
+		height:40px;
 		border:1px solid rgba(0,0,0,0.7);
 		margin:0;
 		background-color: rgba(23, 165, 23,1.0);
@@ -16,15 +16,15 @@
 	.circle-black
 	{
 		border-radius:500px;
-		width:20px;
-		height:20px;
+		width:30px;
+		height:30px;
 		background-color: rgba(0,0,0,0.8);
 	}
 	.circle-white
 	{
 		border-radius:500px;
-		width:20px;
-		height:20px;
+		width:30px;
+		height:30px;
 		background-color: rgba(255,255,255,0.8);
 	}	
 	#othello-board
@@ -63,16 +63,18 @@ $(document).ready(function(){
 </script>	
 <script>
 var chance=1;
+var chance_color = ["","circle-black","circle-white","circle-black"];
 var game_board = [
-					[0,0,0,0,0,0,0,0,0],
-					[0,0,0,0,0,0,0,0,0],
-					[0,0,0,0,0,0,0,0,0],
-					[0,0,0,0,0,0,0,0,0],
-					[0,0,0,0,1,2,0,0,0],
-					[0,0,0,0,2,1,0,0,0],
-					[0,0,0,0,0,0,0,0,0],
-					[0,0,0,0,0,0,0,0,0],
-					[0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,1,2,0,0,0,0],
+					[0,0,0,0,2,1,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0],
 				];
 // 2 = white's chance | 1 = black's chance | black is always first
 function make_move(i,j)
@@ -84,6 +86,7 @@ function make_move(i,j)
 		{
 			document.getElementById("block-"+i+"-"+j).classList.add("circle-black");			
 			game_board[i][j]=1;
+			flip_circles(i,j);
 			chance=2;
 			display_gameboard();
 		}
@@ -91,6 +94,7 @@ function make_move(i,j)
 		{
 			document.getElementById("block-"+i+"-"+j).classList.add("circle-white");			
 			game_board[i][j]=2;
+			flip_circles(i,j);
 			chance=1;			
 			display_gameboard();
 		}	
@@ -114,6 +118,62 @@ function display_gameboard()
 	}
 
 	console.log(s);
+}
+function flip_circles(x,y)
+{
+	document.getElementById("block-"+x+"-"+y).classList.add(chance_color[chance]);
+	game_board[x][y]=chance;
+
+	//UP
+	flip_direction(x-1,y,-1,0);
+
+	//DOWN
+	flip_direction(x+1,y,1,0);
+
+	//RIGHT
+	flip_direction(x,y+1,0,1);
+
+	//LEFT
+	flip_direction(x,y-1,0,-1);
+
+	//UP RIGHT
+	flip_direction(x-1,y+1,-1,1);
+
+	//UP LEFT
+	flip_direction(x-1,y-1,-1,-1);
+
+	//DOWN RIGHT
+	flip_direction(x+1,y+1,1,1);
+
+	//DOWN LEFT
+	flip_direction(x+1,y-1,1,-1);
+
+}
+
+function flip_direction(x,y,i,j)
+{
+	console.log('UP checking '+x+","+y+" = " + game_board[x][y]);
+	if(game_board[x][y]==chance)
+		return true;
+
+	if(game_board[x][y]==0)
+		return false;
+
+	if(flip_direction(x+i,y+j,i,j))
+	{
+		flip(x,y);
+		return true;
+	}	
+	return false;
+}
+
+function flip(x,y)
+{
+		game_board[x][y]=chance;
+		console.log('start flipping: '+x+","+y+" | "+document.getElementById("block-"+x+"-"+y).classList);		
+		document.getElementById("block-"+x+"-"+y).classList.toggle("circle-black");
+		document.getElementById("block-"+x+"-"+y).classList.toggle("circle-white");
+		console.log('start flipping: '+x+","+y+" | "+document.getElementById("block-"+x+"-"+y).classList);		
 }
 
 </script>	
