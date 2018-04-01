@@ -78,8 +78,11 @@ function make_move(i,j)
 	else
 	{
 		error_msg="<br/>Warning: " +'you can not move above any piece!';
-	}	
-	document.getElementById('info-area').innerHTML = '('+player_color[chance]+')'+'Player '+chance+'\'s move' + error_msg;
+	}
+
+	$("#info-area").fadeToggle(200);
+	document.getElementById('info-area').innerHTML = '<div style="padding:2px;background-color:'+player_color[chance]+';width:2vw;height:2vw;border-radius:500px;border:2px solid #000;"></div>'+'Player '+chance+'\'s move' + error_msg;
+	$("#info-area").fadeToggle(200);		
 	count_score();	
 }
 
