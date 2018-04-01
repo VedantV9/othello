@@ -1,0 +1,122 @@
+<!DOCTYPE html lang="en">
+<html>
+<head>
+	<title>othello online</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<style>
+	.othello-board-block
+	{
+		width:30px;
+		height:30px;
+		border:1px solid rgba(0,0,0,0.7);
+		margin:0;
+		background-color: rgba(23, 165, 23,1.0);
+	}
+	.circle-black
+	{
+		border-radius:500px;
+		width:20px;
+		height:20px;
+		background-color: rgba(0,0,0,0.8);
+	}
+	.circle-white
+	{
+		border-radius:500px;
+		width:20px;
+		height:20px;
+		background-color: rgba(255,255,255,0.8);
+	}	
+	#othello-board
+	{
+		background-color:rgba(0,0,0,0.6);
+	}
+	</style>
+</head>
+<body>
+	
+	<table id="othello-board">		
+	</table>
+
+<script>
+$(document).ready(function(){
+	var blockrow='';
+	for(var i=1;i<=8;i++)
+	{
+		blockrow ='<tr class="othello-board-row">';
+		for(var j=1;j<=8;j++)
+		{
+			blockrow = blockrow + '<td class="othello-board-block" onclick="make_move('+i+','+j+')" >';
+			blockrow = blockrow + '<center><div class="" id="block-'+i+'-'+j+'"></div></center>';			
+			blockrow = blockrow + '</td>';		
+		}	
+		blockrow= blockrow + '</tr>';
+		document.getElementById('othello-board').innerHTML = document.getElementById('othello-board').innerHTML + blockrow;
+		//alert('blockrow');
+	}
+	document.getElementById('block-4-4').classList.add("circle-black"); 
+	document.getElementById('block-5-5').classList.add("circle-black"); 
+	document.getElementById('block-5-4').classList.add("circle-white"); 
+	document.getElementById('block-4-5').classList.add("circle-white"); 
+
+});
+</script>	
+<script>
+var chance=1;
+var game_board = [
+					[0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,1,2,0,0,0],
+					[0,0,0,0,2,1,0,0,0],
+					[0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0],
+				];
+// 2 = white's chance | 1 = black's chance | black is always first
+function make_move(i,j)
+{
+//	alert('req: ' + i + j );
+	if(game_board[i][j]==0)
+	{
+		if(chance==1)
+		{
+			document.getElementById("block-"+i+"-"+j).classList.add("circle-black");			
+			game_board[i][j]=1;
+			chance=2;
+			display_gameboard();
+		}
+		else
+		{
+			document.getElementById("block-"+i+"-"+j).classList.add("circle-white");			
+			game_board[i][j]=2;
+			chance=1;			
+			display_gameboard();
+		}	
+	}
+	else
+	{
+		alert('invalid move!!');
+	}	
+
+}
+function display_gameboard()
+{
+	var s = "";
+	for(var i=1;i<=8;i++)
+	{
+		s = s + "\nrow "+i+": ";
+		for(var j=1;j<=8;j++)
+		{
+			s=s+ " " + game_board[i][j];
+		}
+	}
+
+	console.log(s);
+}
+
+</script>	
+
+</body>
+</html>
