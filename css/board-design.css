@@ -24,6 +24,20 @@
 			background-color: rgba(255,255,255,0.9);
 			box-shadow:10px 8px 8px rgba(0, 0, 0, 0.5)
 		}	
+		.circle-black-light
+		{
+			border-radius:500px;
+			width:7vw;
+			height:7vw;
+			border: 2px solid rgba(0,0,0,0.6);
+		}
+		.circle-white-light
+		{
+			border-radius:500px;
+			width:7vw;
+			height:7vw;
+			border: 2px solid rgba(255,255,255,0.6);
+		}
 		#othello-board
 		{
 			background-color:rgba(0,0,0,0.6);
@@ -56,6 +70,20 @@
 			background-color: rgba(255,255,255,0.9);
 			box-shadow:10px 8px 8px rgba(0, 0, 0, 0.5)
 		}	
+		.circle-black-light
+		{
+			border-radius:500px;
+			width:4vw;
+			height:4vw;
+			border: 2px solid rgba(0,0,0,0.6);
+		}		
+		.circle-white-light
+		{
+			border-radius:500px;
+			width:4vw;
+			height:4vw;
+			border: 2px solid rgba(255,255,255,0.6);
+		}		
 		#othello-board
 		{
 			background-color:rgba(0,0,0,0.6);
