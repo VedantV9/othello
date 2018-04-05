@@ -211,7 +211,8 @@ function count_score()
 	}
 	if(game_over==-1)
 		document.getElementById('info-area').innerHTML = 'GAME OVER !!!<br/>No possible move!!';
-
+	if(game_over==1 || game_over==-1)
+		document.getElementById('winning-gif').style.display = 'block';		
 
 
 //	console.log(s);
