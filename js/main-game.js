@@ -1,22 +1,5 @@
 $(document).ready(function(){
-	var blockrow='';
-	for(var i=1;i<=8;i++)
-	{
-		blockrow ='<tr class="othello-board-row">';
-		for(var j=1;j<=8;j++)
-		{
-			blockrow = blockrow + '<td class="othello-board-block" onclick="make_move('+i+','+j+')" >';
-			blockrow = blockrow + '<center><div class="" id="block-'+i+'-'+j+'"></div></center>';			
-			blockrow = blockrow + '</td>';		
-		}	
-		blockrow= blockrow + '</tr>';
-		document.getElementById('othello-board').innerHTML = document.getElementById('othello-board').innerHTML + blockrow;
-	}
-	document.getElementById('block-4-4').classList.add("circle-black"); 
-	document.getElementById('block-5-5').classList.add("circle-black"); 
-	document.getElementById('block-5-4').classList.add("circle-white"); 
-	document.getElementById('block-4-5').classList.add("circle-white"); 
-
+	reset();
 });
 
 var chance=1;
@@ -260,7 +243,7 @@ function possible_chances(x,y)
 	possible_flip_direction(x-1,y,-1,0);
 	if(total_possible_flips>0)
 	{
-		console.log('possible to move on'+x+'-'+y);
+//		console.log('possible to move on'+x+'-'+y);
 				document.getElementById("block-"+x+"-"+y).classList.toggle(possible_chance_color[chance]);
 		return true;
 	}	
@@ -269,7 +252,7 @@ function possible_chances(x,y)
 	possible_flip_direction(x+1,y,1,0);
 	if(total_possible_flips>0)
 	{
-		console.log('possible to move on'+x+'-'+y)
+//		console.log('possible to move on'+x+'-'+y)
 				document.getElementById("block-"+x+"-"+y).classList.toggle(possible_chance_color[chance]);
 		return true;
 	}	
@@ -278,7 +261,7 @@ function possible_chances(x,y)
 	possible_flip_direction(x,y+1,0,1);
 	if(total_possible_flips>0)
 	{
-		console.log('possible to move on'+x+'-'+y)
+//		console.log('possible to move on'+x+'-'+y)
 				document.getElementById("block-"+x+"-"+y).classList.toggle(possible_chance_color[chance]);
 		return true;
 	}	
@@ -287,7 +270,7 @@ function possible_chances(x,y)
 	possible_flip_direction(x,y-1,0,-1);
 	if(total_possible_flips>0)
 	{
-		console.log('possible to move on'+x+'-'+y)
+//		console.log('possible to move on'+x+'-'+y)
 				document.getElementById("block-"+x+"-"+y).classList.toggle(possible_chance_color[chance]);
 		return true;
 	}	
@@ -296,7 +279,7 @@ function possible_chances(x,y)
 	possible_flip_direction(x-1,y+1,-1,1);
 	if(total_possible_flips>0)
 	{
-		console.log('possible to move on'+x+'-'+y)
+//		console.log('possible to move on'+x+'-'+y)
 				document.getElementById("block-"+x+"-"+y).classList.toggle(possible_chance_color[chance]);
 		return true;
 	}	
@@ -305,7 +288,7 @@ function possible_chances(x,y)
 	possible_flip_direction(x-1,y-1,-1,-1);
 	if(total_possible_flips>0)
 	{
-		console.log('possible to move on'+x+'-'+y)
+//		console.log('possible to move on'+x+'-'+y)
 				document.getElementById("block-"+x+"-"+y).classList.toggle(possible_chance_color[chance]);
 		return true;
 	}	
@@ -314,7 +297,7 @@ function possible_chances(x,y)
 	possible_flip_direction(x+1,y+1,1,1);
 	if(total_possible_flips>0)
 	{
-		console.log('possible to move on'+x+'-'+y)
+//		console.log('possible to move on'+x+'-'+y)
 				document.getElementById("block-"+x+"-"+y).classList.toggle(possible_chance_color[chance]);
 		return true;
 	}	
@@ -323,7 +306,7 @@ function possible_chances(x,y)
 	possible_flip_direction(x+1,y-1,1,-1);
 	if(total_possible_flips>0)
 	{
-		console.log('possible to move on'+x+'-'+y)
+//		console.log('possible to move on'+x+'-'+y)
 				document.getElementById("block-"+x+"-"+y).classList.toggle(possible_chance_color[chance]);
 		return true;
 	}	
@@ -347,4 +330,49 @@ function possible_flip_direction(x,y,i,j)
 	}	
 
 	return false;
+}
+
+function reset()
+{
+	/*reseting all variables*/
+	chance=1;
+	chance_color = ["","circle-black","circle-white","circle-black"];
+	player_color = ["","black","white"];
+	possible_chance_color = ["","circle-black-light","circle-white-light","circle-black-light"];
+	game_over=0;
+	total_flips = 0; 
+	game_board = [
+					[0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,1,2,0,0,0,0],
+					[0,0,0,0,2,1,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0],
+				];
+
+	total_possible_flips=0;
+	/*reseting board flips*/
+	var blockrow='';
+	document.getElementById('othello-board').innerHTML ='';
+
+	for(var i=1;i<=8;i++)
+	{
+		blockrow ='<tr class="othello-board-row">';
+		for(var j=1;j<=8;j++)
+		{
+			blockrow = blockrow + '<td class="othello-board-block" onclick="make_move('+i+','+j+')" >';
+			blockrow = blockrow + '<center><div class="" id="block-'+i+'-'+j+'"></div></center>';			
+			blockrow = blockrow + '</td>';		
+		}	
+		blockrow= blockrow + '</tr>';
+		document.getElementById('othello-board').innerHTML = document.getElementById('othello-board').innerHTML + blockrow;
+	}
+	document.getElementById('block-4-4').classList.add("circle-black"); 
+	document.getElementById('block-5-5').classList.add("circle-black"); 
+	document.getElementById('block-5-4').classList.add("circle-white"); 
+	document.getElementById('block-4-5').classList.add("circle-white"); 
 }
