@@ -70,9 +70,12 @@ function make_move(i,j)
 		error_msg="<br/>Warning: " +'you can not move above any piece!';
 	}
 
-	$("#info-area").fadeToggle(200);
-	document.getElementById('info-area').innerHTML = '<div style="padding:2px;background-color:'+player_color[chance]+';width:2vw;height:2vw;border-radius:500px;border:2px solid #000;"></div>'+'Player '+chance+'\'s move' + error_msg;
-	$("#info-area").fadeToggle(200);		
+	if(game_over==0)
+	{
+		$("#info-area").fadeToggle(200);
+		document.getElementById('info-area').innerHTML = '<div style="padding:2px;background-color:'+player_color[chance]+';width:2vw;height:2vw;border-radius:500px;border:2px solid #000;"></div>'+'Player '+chance+'\'s move' + error_msg;
+		$("#info-area").fadeToggle(200);				
+	}	
 	count_score();	
 }
 
@@ -174,26 +177,46 @@ function count_score()
 	{
 		if(game_over==1 && score_black+score_white<64 && chance==1)
 		{
-			game_over=2;
 			chance=2;
-			document.getElementById('info-area').innerHTML = 'No possible move for BLACK<br/>white moves again!!';
+			total_possible_chances();
+			if(total_possible_flips==0)
+			{
+				document.getElementById('info-area').innerHTML = 'No Possible Moves<br/>Game Over';				
+			}	
+			else
+			{
+				document.getElementById('info-area').innerHTML = 'No possible move for BLACK<br/>white moves again!!';
+				game_over=0;
+			}
+
 		}	
 		else if(game_over==1 && score_black+score_white<64 && chance==2)
 		{
-			game_over=2;
 			chance=1;
-			document.getElementById('info-area').innerHTML = 'No possible move for BLACK<br/>white moves again!!';
+			total_possible_chances();
+			if(total_possible_flips==0)
+			{
+				document.getElementById('info-area').innerHTML = 'No Possible Moves Game Over';
+			}
+			else
+			{
+				document.getElementById('info-area').innerHTML = 'No possible move for WHITE<br/>black moves again!!';
+				game_over=0;
+			}
 		}	
-		else if(score_black>score_white)
-			document.getElementById('info-area').innerHTML = 'GAME OVER !!!<br/>BLACK wins!!';
-		else if(score_black<score_white)
-			document.getElementById('info-area').innerHTML = 'GAME OVER !!!<br/>WHITE wins!!';
-		else
-			document.getElementById('info-area').innerHTML = 'GAME OVER !!!<br/>match DRAW!!';
+
+		if(total_possible_flips==0)
+		{
+			if(score_black>score_white)
+				document.getElementById('info-area').innerHTML = 'GAME OVER !!!<br/>BLACK wins!!';
+			else if(score_black<score_white)
+				document.getElementById('info-area').innerHTML = 'GAME OVER !!!<br/>WHITE wins!!';
+			else
+				document.getElementById('info-area').innerHTML = 'GAME OVER !!!<br/>match DRAW!!';
+		}	
 
 	}
-	if(game_over==-1)
-		document.getElementById('info-area').innerHTML = 'GAME OVER !!!<br/>No possible move!!';
+
 	if(game_over==1 || game_over==-1)
 		document.getElementById('winning-gif').style.display = 'block';		
 
@@ -225,9 +248,7 @@ function total_possible_chances()
 	}
 	if(game_possible==0)
 	{
-		if(game_over!=2)
-		game_over=1;
-		else if(game_over==2) game_over=-1;			
+			game_over=1;
 	}
 
 }
@@ -375,4 +396,6 @@ function reset()
 	document.getElementById('block-5-5').classList.add("circle-black"); 
 	document.getElementById('block-5-4').classList.add("circle-white"); 
 	document.getElementById('block-4-5').classList.add("circle-white"); 
+	document.getElementById('winning-gif').style.display = 'none';		
+
 }

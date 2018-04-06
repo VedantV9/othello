@@ -29,14 +29,14 @@
 			border-radius:500px;
 			width:7vw;
 			height:7vw;
-			border: 2px solid rgba(0,0,0,0.6);
+			border: 2px solid rgba(0,0,0,0.2);
 		}
 		.circle-white-light
 		{
 			border-radius:500px;
 			width:7vw;
 			height:7vw;
-			border: 2px solid rgba(255,255,255,0.6);
+			border: 2px solid rgba(255,255,255,0.2);
 		}
 		#othello-board
 		{
@@ -75,14 +75,14 @@
 			border-radius:500px;
 			width:4vw;
 			height:4vw;
-			border: 2px solid rgba(0,0,0,0.6);
+			border: 2px solid rgba(0,0,0,0.2);
 		}		
 		.circle-white-light
 		{
 			border-radius:500px;
 			width:4vw;
 			height:4vw;
-			border: 2px solid rgba(255,255,255,0.6);
+			border: 2px solid rgba(255,255,255,0.2);
 		}		
 		#othello-board
 		{
